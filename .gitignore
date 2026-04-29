@@ -1,0 +1,17 @@
+node_modules/
+.env
+.env.*
+!.env.example
+
+data/update-state.json
+data/*.json
+!data/update-state.example.json
+
+config/games.json
+!config/games.template.json
+
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

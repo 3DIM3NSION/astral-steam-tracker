@@ -1,0 +1,145 @@
+[
+  {
+    "key": "apex_legends",
+    "name": "Apex Legends",
+    "steamAppId": "1172470",
+    "enabled": true,
+    "imageUrl": "",
+    "patchNotesUrlOverride": "",
+    "roleMention": "",
+    "webhookUrl": "",
+    "notes": "Verify current Steam update/build behavior before production use."
+  },
+  {
+    "key": "battlefield_6",
+    "name": "Battlefield 6",
+    "steamAppId": "VERIFY",
+    "enabled": false,
+    "imageUrl": "",
+    "patchNotesUrlOverride": "",
+    "roleMention": "",
+    "webhookUrl": "",
+    "notes": "Confirm final Steam app ID/title naming before enabling."
+  },
+  {
+    "key": "call_of_duty",
+    "name": "Call of Duty",
+    "steamAppId": "1938090",
+    "enabled": true,
+    "imageUrl": "",
+    "patchNotesUrlOverride": "",
+    "roleMention": "",
+    "webhookUrl": "",
+    "notes": "COD uses a hub-style Steam app. Validate update detection carefully."
+  },
+  {
+    "key": "cs2",
+    "name": "Counter-Strike 2",
+    "steamAppId": "730",
+    "enabled": true,
+    "imageUrl": "",
+    "patchNotesUrlOverride": "",
+    "roleMention": "",
+    "webhookUrl": "",
+    "notes": "Known Steam app ID."
+  },
+  {
+    "key": "dayz",
+    "name": "DayZ",
+    "steamAppId": "221100",
+    "enabled": true,
+    "imageUrl": "",
+    "patchNotesUrlOverride": "",
+    "roleMention": "",
+    "webhookUrl": "",
+    "notes": "Known Steam app ID."
+  },
+  {
+    "key": "dead_by_daylight",
+    "name": "Dead by Daylight",
+    "steamAppId": "381210",
+    "enabled": true,
+    "imageUrl": "",
+    "patchNotesUrlOverride": "",
+    "roleMention": "",
+    "webhookUrl": "",
+    "notes": "Known Steam app ID."
+  },
+  {
+    "key": "deadlock",
+    "name": "Deadlock",
+    "steamAppId": "1422450",
+    "enabled": true,
+    "imageUrl": "",
+    "patchNotesUrlOverride": "",
+    "roleMention": "",
+    "webhookUrl": "",
+    "notes": "Verify app ID and public Steam data behavior before production use."
+  },
+  {
+    "key": "escape_from_tarkov",
+    "name": "Escape from Tarkov",
+    "steamAppId": "VERIFY",
+    "enabled": false,
+    "imageUrl": "",
+    "patchNotesUrlOverride": "",
+    "roleMention": "",
+    "webhookUrl": "",
+    "notes": "User notes it is on Steam now. Confirm exact Steam app ID before enabling."
+  },
+  {
+    "key": "marvel_rivals",
+    "name": "Marvel Rivals",
+    "steamAppId": "2767030",
+    "enabled": true,
+    "imageUrl": "",
+    "patchNotesUrlOverride": "",
+    "roleMention": "",
+    "webhookUrl": "",
+    "notes": "Verify current Steam app ID and update behavior."
+  },
+  {
+    "key": "overwatch",
+    "name": "Overwatch",
+    "steamAppId": "2357570",
+    "enabled": true,
+    "imageUrl": "",
+    "patchNotesUrlOverride": "",
+    "roleMention": "",
+    "webhookUrl": "",
+    "notes": "Verify Steam update/news behavior."
+  },
+  {
+    "key": "path_of_exile_2",
+    "name": "Path of Exile 2",
+    "steamAppId": "2694490",
+    "enabled": true,
+    "imageUrl": "",
+    "patchNotesUrlOverride": "",
+    "roleMention": "",
+    "webhookUrl": "",
+    "notes": "Verify Steam update/build behavior before production use."
+  },
+  {
+    "key": "rainbow_six_siege",
+    "name": "Rainbow Six Siege",
+    "steamAppId": "359550",
+    "enabled": true,
+    "imageUrl": "",
+    "patchNotesUrlOverride": "",
+    "roleMention": "",
+    "webhookUrl": "",
+    "notes": "Known Steam app ID."
+  },
+  {
+    "key": "rust",
+    "name": "Rust",
+    "steamAppId": "252490",
+    "enabled": true,
+    "imageUrl": "",
+    "patchNotesUrlOverride": "",
+    "roleMention": "",
+    "webhookUrl": "",
+    "notes": "Known Steam app ID."
+  }
+]

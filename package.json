@@ -1,0 +1,19 @@
+{
+  "name": "astral-steam-tracker",
+  "version": "1.0.0",
+  "description": "Astral Projects — Steam update tracker that posts polished Discord embeds when monitored games receive a new build/news update.",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "force-check": "node src/scripts/forceCheck.js",
+    "test-embed": "node src/scripts/sendTestEmbed.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
