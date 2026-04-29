@@ -83,10 +83,10 @@ Astral Projects • Tracker • 2026-04-26 12:14 AM
 | Path of Exile 2 | `2694490` | ✅ | Verify update cadence. |
 | Deadlock | `1422450` | ✅ | Verify public Steam visibility. |
 | Call of Duty | `1938090` | ✅ | Hub-style app — validate carefully. |
-| Battlefield 6 | `VERIFY` | ❌ | App ID not yet finalized. |
-| Escape from Tarkov | `VERIFY` | ❌ | Confirm Steam app ID before enabling. |
+| Battlefield 6 | `2807960` | ✅ | [store.steampowered.com/app/2807960](https://store.steampowered.com/app/2807960/Battlefield_6/) |
+| Escape from Tarkov | `3932890` | ✅ | [store.steampowered.com/app/3932890](https://store.steampowered.com/app/3932890/Escape_from_Tarkov/) |
 
-Games with `VERIFY` are shipped disabled — fill the real app ID in `config/games.json` and flip `enabled: true`.
+All 13 default games ship enabled. To disable a game, flip `enabled: false` in `config/games.json`.
 
 ---
 

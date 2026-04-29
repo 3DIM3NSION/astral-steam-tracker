@@ -5,13 +5,13 @@ Use this matrix to verify Steam app IDs and tracking behavior during implementat
 | Game | Key | Steam App ID | Status | Tracking Notes |
 |---|---:|---:|---|---|
 | Apex Legends | `apex_legends` | `1172470` | Needs verification | Steam-backed. Track build/news. |
-| Battlefield 6 | `battlefield_6` | `VERIFY` | Needs verification | Confirm final Steam app ID/title naming. |
+| Battlefield 6 | `battlefield_6` | `2807960` | Known | Track build/news. |
 | Call of Duty | `call_of_duty` | `1938090` | Needs verification | COD hub can be complex. Validate update/news behavior. |
 | Counter-Strike 2 | `cs2` | `730` | Known | Track build/news. |
 | DayZ | `dayz` | `221100` | Known | Track build/news. |
 | Dead by Daylight | `dead_by_daylight` | `381210` | Known | Track build/news. |
 | Deadlock | `deadlock` | `1422450` | Needs verification | Validate app ID and public Steam data behavior. |
-| Escape from Tarkov | `escape_from_tarkov` | `VERIFY` | Needs verification | User notes it is on Steam now. Confirm exact app ID. |
+| Escape from Tarkov | `escape_from_tarkov` | `3932890` | Known | Track build/news. |
 | Marvel Rivals | `marvel_rivals` | `2767030` | Needs verification | Track build/news. |
 | Overwatch | `overwatch` | `2357570` | Needs verification | Track build/news. |
 | Path of Exile 2 | `path_of_exile_2` | `2694490` | Needs verification | Track build/news. |

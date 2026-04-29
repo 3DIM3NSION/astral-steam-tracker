@@ -13,13 +13,13 @@
   {
     "key": "battlefield_6",
     "name": "Battlefield 6",
-    "steamAppId": "VERIFY",
-    "enabled": false,
+    "steamAppId": "2807960",
+    "enabled": true,
     "imageUrl": "",
     "patchNotesUrlOverride": "",
     "roleMention": "",
     "webhookUrl": "",
-    "notes": "Confirm final Steam app ID/title naming before enabling."
+    "notes": "Steam app ID confirmed: store.steampowered.com/app/2807960/Battlefield_6/"
   },
   {
     "key": "call_of_duty",
@@ -79,13 +79,13 @@
   {
     "key": "escape_from_tarkov",
     "name": "Escape from Tarkov",
-    "steamAppId": "VERIFY",
-    "enabled": false,
+    "steamAppId": "3932890",
+    "enabled": true,
     "imageUrl": "",
     "patchNotesUrlOverride": "",
     "roleMention": "",
     "webhookUrl": "",
-    "notes": "User notes it is on Steam now. Confirm exact Steam app ID before enabling."
+    "notes": "Steam app ID confirmed: store.steampowered.com/app/3932890/Escape_from_Tarkov/"
   },
   {
     "key": "marvel_rivals",
