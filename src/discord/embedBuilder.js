@@ -1,56 +1,87 @@
 import { formatNow, isoNow } from '../utils/time.js';
+import { sanitizeNewsContent, summarize, truncate } from '../utils/text.js';
+import { steamHeaderImage, steamNewsUrl } from '../steam/steamMedia.js';
 
-const WHATS_NEW_TEMPLATE = (gameName) =>
-  `A new Steam update is live for ${gameName}. Review the linked patch notes, compare changes against the previous tracked build, and verify product compatibility before marking this product as updated.`;
+const FIELD_VALUE_MAX = 1024;
+const DESCRIPTION_MAX = 4000;
 
-function buildBuildComparison({ previousBuildId, latestBuildId, previousNewsTitle, latestNewsTitle }) {
+function buildBuildLines({ latestBuildId, previousBuildId, latestNewsTitle }) {
+  const lines = [];
   if (latestBuildId) {
-    const prev = previousBuildId ? String(previousBuildId) : 'Unknown';
-    return `Steam build changed:\n${prev} → ${latestBuildId}`;
+    lines.push(`Build \`${latestBuildId}\` is available on Steam.`);
+    if (previousBuildId) {
+      lines.push(`Previous build \`${previousBuildId}\` retired.`);
+    } else {
+      lines.push('Previous build unknown — first time tracking this product.');
+    }
+  } else if (latestNewsTitle) {
+    lines.push(`New Steam update detected: \`${truncate(latestNewsTitle, 120)}\`.`);
+  } else {
+    lines.push('A new Steam update has been detected.');
   }
-  if (latestNewsTitle) {
-    const prev = previousNewsTitle ? previousNewsTitle : 'Unknown';
-    return `Steam update changed:\n${prev} → ${latestNewsTitle}`;
-  }
-  return 'Steam update detected.';
+  return lines;
 }
 
-function buildPatchNotesField({ patchTitle, patchUrl }) {
-  if (patchTitle && patchUrl) {
-    return `[${patchTitle}](${patchUrl})`;
+function buildPatchSummaryLines({ news, gameName }) {
+  if (!news) return [];
+  const lines = [''];
+  const summary = summarize(news.contents, 240);
+  if (summary) {
+    lines.push(summary);
+  } else if (news.title) {
+    lines.push(`${gameName} update — ${news.title}`);
   }
-  if (patchTitle) return patchTitle;
-  return 'Steam update source unavailable';
+  if (news.title && news.url) {
+    lines.push(`[${truncate(news.title, 200)}](${news.url})`);
+  }
+  return lines;
+}
+
+function buildWhatsNewValue({ news, gameName }) {
+  if (news?.contents) {
+    const summary = summarize(news.contents, 700);
+    if (summary) return truncate(summary, FIELD_VALUE_MAX);
+  }
+  return `A new Steam update is live for ${gameName}. Patch contents were not provided in the Steam news feed.`;
+}
+
+function resolveImageUrl({ game, env }) {
+  if (game.imageUrl) return game.imageUrl;
+  if (env.embed.fallbackImageUrl) return env.embed.fallbackImageUrl;
+  return steamHeaderImage(game.steamAppId);
+}
+
+function resolvePatchUrl({ game, news }) {
+  if (game.patchNotesUrlOverride) return game.patchNotesUrlOverride;
+  if (news?.url) return news.url;
+  return steamNewsUrl(game.steamAppId);
 }
 
 export function buildUpdateEmbed({ env, game, latest, previous }) {
   const gameName = game.name;
   const latestBuildId = latest?.build?.buildId ?? null;
   const previousBuildId = previous?.lastBuildId ?? null;
-  const patchTitle = latest?.news?.title ?? previous?.lastPatchTitle ?? null;
-  const patchUrl =
-    game.patchNotesUrlOverride ||
-    latest?.news?.url ||
-    (game.steamAppId ? `https://store.steampowered.com/news/app/${game.steamAppId}` : '');
+  const news = latest?.news ?? null;
 
-  const description = [
-    buildBuildComparison({
-      previousBuildId,
+  const sanitizedNews = news
+    ? { ...news, contents: sanitizeNewsContent(news.contents) }
+    : null;
+
+  const descriptionLines = [
+    ...buildBuildLines({
       latestBuildId,
-      previousNewsTitle: previous?.lastPatchTitle ?? null,
-      latestNewsTitle: latest?.news?.title ?? null,
+      previousBuildId,
+      latestNewsTitle: sanitizedNews?.title ?? null,
     }),
-  ].join('\n');
+    ...buildPatchSummaryLines({ news: sanitizedNews, gameName }),
+  ];
+
+  const description = truncate(descriptionLines.join('\n'), DESCRIPTION_MAX);
 
   const fields = [
     {
-      name: 'Patch notes',
-      value: buildPatchNotesField({ patchTitle, patchUrl }),
-      inline: false,
-    },
-    {
       name: "What's new",
-      value: WHATS_NEW_TEMPLATE(gameName),
+      value: buildWhatsNewValue({ news: sanitizedNews, gameName }),
       inline: false,
     },
   ];
@@ -62,6 +93,7 @@ export function buildUpdateEmbed({ env, game, latest, previous }) {
 
   const embed = {
     title: `${gameName} · update now live`,
+    url: resolvePatchUrl({ game, news: sanitizedNews }),
     description,
     color: env.embed.color,
     fields,
@@ -76,7 +108,7 @@ export function buildUpdateEmbed({ env, game, latest, previous }) {
     },
   };
 
-  const imageUrl = game.imageUrl || env.embed.fallbackImageUrl;
+  const imageUrl = resolveImageUrl({ game, env });
   if (imageUrl) embed.image = { url: imageUrl };
 
   return embed;
@@ -89,7 +121,8 @@ export function buildTestEmbed({ env }) {
   });
   return {
     title: 'Astral Steam Tracker · startup test',
-    description: 'Webhook delivery is operational. Branding values are sourced from `.env`.',
+    description:
+      'Webhook delivery is operational. Branding values are sourced from `.env`.\nThis is a non-game test embed.',
     color: env.embed.color,
     fields: [
       {

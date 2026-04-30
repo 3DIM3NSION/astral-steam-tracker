@@ -37,18 +37,19 @@ Every update produces a clean, operational notification — not hype, not emoji 
 ```
 Counter-Strike 2 · update now live
 
-Steam build changed:
-22948122 → 22948967
+Build `22948967` is available on Steam.
+Previous build `22941301` retired.
 
-Patch notes
-Counter-Strike 2 release notes — 2026-04-26
+Maintenance build, no gameplay changes detected. Engine tick smoothing
+on low-fps clients. Server-side anti-tamper revision.
+Counter-Strike 2 release notes — 2026-04-28
 
 What's new
-A new Steam update is live for Counter-Strike 2. Review the linked patch
-notes, compare changes against the previous tracked build, and verify
-product compatibility before marking this product as updated.
+Maintenance build, no gameplay changes detected. Engine tick smoothing
+on low-fps clients. Server-side anti-tamper revision. New replay sample
+for QA.
 
-Astral Projects • Tracker • 2026-04-26 12:14 AM
+Astral Projects • Tracker • 2026-04-28 09:26 AM
 ```
 
 ---
