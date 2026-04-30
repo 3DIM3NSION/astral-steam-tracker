@@ -5,11 +5,34 @@ import { steamHeaderImage, steamNewsUrl } from '../steam/steamMedia.js';
 const FIELD_VALUE_MAX = 1024;
 const DESCRIPTION_MAX = 4000;
 
+// Discord rejects URLs that contain unescaped characters such as spaces,
+// brackets, or other reserved-but-unencoded sub-delims. encodeURI is
+// idempotent for already-encoded inputs (it only escapes characters that
+// are not already part of a valid URI).
+function safeUrl(u) {
+  if (!u || typeof u !== 'string') return '';
+  try {
+    return encodeURI(u).replace(/\(/g, '%28').replace(/\)/g, '%29');
+  } catch {
+    return '';
+  }
+}
+
+function safeMarkdownLink(text, url) {
+  const safe = safeUrl(url);
+  if (!safe) return text;
+  // square brackets in the visible text break markdown link parsing
+  const cleanText = text.replace(/\[/g, '(').replace(/\]/g, ')');
+  return `[${cleanText}](${safe})`;
+}
+
 function buildBuildLines({ latestBuildId, previousBuildId, latestNewsTitle }) {
   const lines = [];
   if (latestBuildId) {
     lines.push(`Build \`${latestBuildId}\` is available on Steam.`);
-    if (previousBuildId) {
+    if (previousBuildId && String(previousBuildId) === String(latestBuildId)) {
+      lines.push('No build change since last poll — manual re-broadcast.');
+    } else if (previousBuildId) {
       lines.push(`Previous build \`${previousBuildId}\` retired.`);
     } else {
       lines.push('Previous build unknown — first time tracking this product.');
@@ -32,7 +55,7 @@ function buildPatchSummaryLines({ news, gameName }) {
     lines.push(`${gameName} update — ${news.title}`);
   }
   if (news.title && news.url) {
-    lines.push(`[${truncate(news.title, 200)}](${news.url})`);
+    lines.push(safeMarkdownLink(truncate(news.title, 200), news.url));
   }
   return lines;
 }
@@ -93,7 +116,7 @@ export function buildUpdateEmbed({ env, game, latest, previous }) {
 
   const embed = {
     title: `${gameName} · update now live`,
-    url: resolvePatchUrl({ game, news: sanitizedNews }),
+    url: safeUrl(resolvePatchUrl({ game, news: sanitizedNews })),
     description,
     color: env.embed.color,
     fields,
@@ -108,8 +131,11 @@ export function buildUpdateEmbed({ env, game, latest, previous }) {
     },
   };
 
-  const imageUrl = resolveImageUrl({ game, env });
+  const imageUrl = safeUrl(resolveImageUrl({ game, env }));
   if (imageUrl) embed.image = { url: imageUrl };
+
+  // Drop empty url field — Discord rejects empty strings.
+  if (!embed.url) delete embed.url;
 
   return embed;
 }
